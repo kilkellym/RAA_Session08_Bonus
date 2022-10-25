@@ -4,13 +4,10 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
-using NLog.Config;
 using Slack.Webhooks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using NLog.Slack;
-using NLog;
 
 #endregion
 
@@ -56,29 +53,11 @@ namespace RAA_Session08_Bonus
             // step 4. write your Slack connection code
             string slackURL = @"https://hooks.slack.com/services/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";
 
-            //SlackClient slackClient = new SlackClient(slackURL);
-            //SlackMessage slackMessage = new SlackMessage();
+            SlackClient slackClient = new SlackClient(slackURL);
+            SlackMessage slackMessage = new SlackMessage();
 
-            //slackMessage.Text = "This is my first Slack message test!!!!";
-            //slackClient.Post(slackMessage);
-
-            var config = new LoggingConfiguration();
-            var slackTarget = new SlackTarget
-            {
-                Layout = "${message}",
-                WebHookUrl = slackURL,
-            };
-
-            config.AddTarget(slackTarget);
-
-            var slackTargetRules = new LoggingRule("*", NLog.LogLevel.Debug, slackTarget);
-            config.LoggingRules.Add(slackTargetRules);
-
-            LogManager.Configuration = config;
-
-            Logger.De
-
-
+            slackMessage.Text = "This is my first Slack message test!!!!";
+            slackClient.Post(slackMessage);
 
 
             return Result.Succeeded;
